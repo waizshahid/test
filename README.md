@@ -2,4 +2,4 @@
 
 Waiz
 
-Abdullah
+Abdullah Afzal
