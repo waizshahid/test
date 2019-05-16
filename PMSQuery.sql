@@ -1,8 +1,5 @@
 
-
-
 Drop Table Shipment
-Drop Table Supplier
 Drop Table Dispatch
 Drop Table OrderDetail
 Drop Table Printing
@@ -15,17 +12,36 @@ Drop Table Loom
 Drop Table Bag_Type
 Drop Table Mixture
 Drop Table Inventory
+Drop Table Item
+Drop Table Supplier
 
 
 
 
+CREATE TABLE Supplier (
+	Sup_ID int NOT NULL,
+	Sup_Address varchar(20),
+	Phone int,
+	Sup_Company varchar(20) NOT NULL,
+    PRIMARY KEY(Sup_ID)
+)
+
+CREAtE TABLE Item(
+	Item_ID int NOt NULL,
+	Item_Name varchar(20),
+	
+	PRIMARY KEY(Item_ID)
+)
 
 CREATE TABLE Inventory (
-	Item_ID int NOT NULL,
+	Inv_ID int NOT NULL,
+	EnteryTime DATETIME NOT NULL,
+	Sup_Company varchar(20),
 	Item_Name varchar(20),
 	Quantity int,
 	T_Price int,
-    PRIMARY KEY(Item_ID)
+	Comments varchar(50),
+    PRIMARY KEY(Inv_ID)
 )
 
 
@@ -35,7 +51,7 @@ CREATE TABLE Mixture (
 	Mix_Name varchar(20),
 	Item_ID int,
     PRIMARY KEY(Mix_ID),
-	FOREIGN KEY (Item_ID) REFERENCES Inventory(Item_ID)
+	FOREIGN KEY (Item_ID) REFERENCES Item(Item_ID)
 	
 )
 
@@ -145,24 +161,15 @@ CREATE TABLE Dispatch (
 )
 
 
-CREATE TABLE Supplier (
-	Sup_ID varchar(20) NOT NULL,
-	Sup_Address varchar(20),
-	Phone int,
-	Sup_Company varchar(20),
-    PRIMARY KEY(Sup_ID)
-)
 
 CREATE TABLE Shipment (
 	Ship_ID int NOT NULL,
-	Sup_ID varchar(20) NOT NULL,
+	Sup_ID int,
 	Item_ID int NOT NULL,
 	Quantity int NOT NULL,
 	Price int NOT NULL,
     PRIMARY KEY(Ship_ID),
 	FOREIGN KEY (Sup_ID) REFERENCES Supplier(Sup_ID),
-	FOREIGN KEY (Item_ID) REFERENCES Inventory(Item_ID)
+	FOREIGN KEY (Item_ID) REFERENCES Item(Item_ID)
 )
-
-
 
